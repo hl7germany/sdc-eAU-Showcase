@@ -1,0 +1,52 @@
+<QuestionnaireResponse>
+
+	<questionnaire value="http://gefyra.de/fhir/Questionnaire/eAU"/>
+	<status value="completed"/>
+	<subject>
+		<!-- Bundle.entry:Patient, referenziert durch: Composition.subject, Condition.subject, Coverage.beneficiary...-->
+		<reference value="Patient/example"/>
+	</subject>
+	<authored value="2019-05-15T13:17:28+02:00"/>
+	<source>
+		<!-- Bundle.entry:Practitioner, referenziert durch: Composition.author, Condition.asserter...-->
+		<reference value="Practitioner/example"/>
+	</source>
+
+	<item>
+		<!--Bundle.entry:Composition-->
+		<linkId value="Composition.type.coding:Art_eAU"/>
+		<answer>
+			<!-- Hä!? Warum kann QuestionnaireResponse.item.answer.value[x] andere types haben als Questionnaire.item.type!?!?!
+			Was wäre die Response auf ein item mit type "choice"???
+			Oder anders gefragt: Welchen type muss ein item haben, damit Coding als Antwort herauskommt!!?-->
+			<valueString value="ERST"/>
+		</answer>
+	</item>
+	<item>
+		<!-- könnte auch aus QuestionnaireResponse.authored übernommen werden-->
+		<linkId value="Composition.date"/>
+		<answer>
+			<valueDate value="2020-03-02"/>
+		</answer>
+	</item>
+	<item>
+		<!-- Es können 1..6 Diagnosen angegeben werden. Kann EQU wiederholbare Gruppen...?-->
+		<!-- Bundle.entry:Condition, referenziert durch Composition.section:ICD.entry-->
+		<linkId value="Diagnosen-Gruppe"/>
+		<item>
+			<!--Condition.clinicalStatus und Condition.verificationStatus müssten daraus gemappt werden können, 
+			siehe https://simplifier.net/guide/basisprofil-de-r4/Diagnosesicherheit-->
+			<linkId value="Condition.code.coding:ICD-10-GM.extension:Diagnosesicherheit"/>
+			<answer>
+				<valueString value="V"/>
+			</answer>
+		</item>
+		<item>
+			<!-- kann man ICD hier sinnvoll validieren? Wenn ja, wie...?-->
+			<linkId value="Condition.code.coding:ICD-10-GM"/>
+			<answer>
+				<valueString value="F17.4"/>
+			</answer>
+		</item>			
+	</item>
+</QuestionnaireResponse>

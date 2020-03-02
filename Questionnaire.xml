@@ -1,0 +1,50 @@
+<Questionnaire>
+	<url value="http://gefyra.de/fhir/Questionnaire/eAU"/>
+	<version value="0.1"/>
+	<name value="eAU"/>
+	<title value="Formular zur Erfassung einer eArbeitsunfähigkeitsbescheinigung"/>
+	<status value="draft"/>
+	<item>
+		<linkId value="Composition.type.coding:Art_eAU"/>
+		<definition value="https://fhir.kbv.de/StructureDefinition/KBV_PR_EAU_Composition#Composition.type.coding:Art_eAU"/>
+		<text value="Art der Arbeitsunfähigkeitsbescheinigung"/>
+		<type value="choice"/>
+		<required value="true"/>
+		<repeats value="false"/>
+		<!-- Achtung! Das VS ist im KBV-Projekt nicht expandet-->
+		<answerValueSet value="https://fhir.kbv.de/ValueSet/KBV_VS_EAU_AU_Type"/>
+	</item>
+	<item>
+		<linkId value="Composition.date"/>
+		<definition value="https://fhir.kbv.de/StructureDefinition/KBV_PR_EAU_Composition#Composition.date"/>
+		<text value="Ausstellungsdatum"/>
+		<type value="date"/>
+		<required value="true"/>
+		<repeats value="false"/>
+	</item>
+	<item>
+		<!-- Es können 1..6 Diagnosen angegeben werden. Kann EQU wiederholbare Gruppen...?-->
+		<linkId value="Diagnosen-Gruppe"/>
+		<text value="Diagnosen"/>
+		<type value="group"/>
+		<item>
+			<!--Condition.clinicalStatus und Condition.verificationStatus müssten daraus gemappt werden können, siehe https://simplifier.net/guide/basisprofil-de-r4/Diagnosesicherheit-->
+			<linkId value="Condition.code.coding:ICD-10-GM.extension:Diagnosesicherheit"/>
+			<definition value="https://fhir.kbv.de/StructureDefinition/KBV_PR_EAU_Condition_ICD#Condition.code.coding:ICD-10-GM.extension:Diagnosesicherheit"/>
+			<text value="Diagnosensicherheit"/>
+			<type value="choice"/>
+			<required value="true"/>
+			<repeats value="false"/>
+			<answerValueSet value="https://fhir.kbv.de/ValueSet/KBV_VS_SFHIR_ICD_DIAGNOSESICHERHEIT"/>
+		</item>
+		<item>
+			<!-- kann man ICD hier sinnvoll validieren? Wenn ja, wie...?-->
+			<linkId value="Condition.code.coding:ICD-10-GM"/>
+			<definition value="https://fhir.kbv.de/StructureDefinition/KBV_PR_EAU_Condition_ICD#Condition.code.coding:ICD-10-GM"/>
+			<text value="Diagnosecode"/>
+			<type value="string"/>
+			<required value="true"/>
+			<repeats value="false"/>
+		</item>			
+	</item>
+</Questionnaire>
