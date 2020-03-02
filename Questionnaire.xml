@@ -15,6 +15,7 @@
 		<answerValueSet value="https://fhir.kbv.de/ValueSet/KBV_VS_EAU_AU_Type"/>
 	</item>
 	<item>
+		<!-- könnte auch aus QuestionnaireResponse.authored übernommen werden-->
 		<linkId value="Composition.date"/>
 		<definition value="https://fhir.kbv.de/StructureDefinition/KBV_PR_EAU_Composition#Composition.date"/>
 		<text value="Ausstellungsdatum"/>
@@ -22,8 +23,69 @@
 		<required value="true"/>
 		<repeats value="false"/>
 	</item>
+
+
 	<item>
-		<!-- Es können 1..6 Diagnosen angegeben werden. Kann EQU wiederholbare Gruppen...?-->
+		<linkId value="Dauer-Gruppe"/>
+		<text value="Dauer der Arbeitsunfähigkeit"/>
+		<type value="group"/>
+		<item>
+			<linkId value="Condition.onset[x]:onsetPeriod.start"/>
+			<text value="von:"/>
+			<type value="date"/>
+			<required value="true"/>
+			<repeats value="false"/>
+		</item>
+		<item>
+			<linkId value="Condition.onset[x]:onsetPeriod.end"/>
+			<text value="bis:"/>
+			<type value="date"/>
+			<required value="true"/>
+			<repeats value="false"/>
+		</item>
+	</item>
+
+	<item>
+		<linkId value="Art-Gruppe"/>
+		<text value="Art der Arbeitsunfähigkeit"/>
+		<type value="group"/>
+		<item>
+			<linkId value="Condition.extension:versorgungsleiden"/>
+			<text value="Versorgungsleiden"/>
+			<type value="boolean"/>
+			<required value="true"/>
+			<repeats value="false"/>
+			<initial>
+				<valueBoolean value="false"/>
+			</initial>
+		</item>
+		<item>
+			<linkId value="Condition.extension:unfall"/>
+			<text value="Unfall"/>
+			<type value="boolean"/>
+			<required value="true"/>
+			<repeats value="false"/>
+			<initial>
+				<valueBoolean value="false"/>
+			</initial>
+		</item>
+		<item>
+			<linkId value="Condition.extension:arbeitsunfall"/>
+			<text value="Arbeitsunfall"/>
+			<type value="boolean"/>
+			<required value="true"/>
+			<repeats value="false"/>
+			<initial>
+				<valueBoolean value="false"/>
+			</initial>
+		</item>
+	</item>
+
+	<item>
+		<!-- Es können 1..6 Diagnosen angegeben werden. 
+		Das item müsste 6 mal definiert werden, 
+		und jeweils mittels enableWhen aktiviert werden, 
+		sobald das vorherige beantwortet wurde-->
 		<linkId value="Diagnosen-Gruppe"/>
 		<text value="Diagnosen"/>
 		<type value="group"/>
