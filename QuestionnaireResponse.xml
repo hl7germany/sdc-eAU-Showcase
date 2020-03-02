@@ -16,10 +16,10 @@
 		<!--Bundle.entry:Composition-->
 		<linkId value="Composition.type.coding:Art_eAU"/>
 		<answer>
-			<!-- Hä!? Warum kann QuestionnaireResponse.item.answer.value[x] andere types haben als Questionnaire.item.type!?!?!
-			Was wäre die Response auf ein item mit type "choice"???
-			Oder anders gefragt: Welchen type muss ein item haben, damit Coding als Antwort herauskommt!!?-->
-			<valueString value="ERST"/>
+			<valueCoding>
+				<system value="https://fhir.kbv.de/CodeSystem/KBV_CS_EAU_AU_Type"/>
+				<code value="ERST"/>
+			</valueCoding>
 		</answer>
 	</item>
 	<item>
@@ -38,7 +38,10 @@
 			siehe https://simplifier.net/guide/basisprofil-de-r4/Diagnosesicherheit-->
 			<linkId value="Condition.code.coding:ICD-10-GM.extension:Diagnosesicherheit"/>
 			<answer>
-				<valueString value="V"/>
+				<valueCoding>
+					<system value="https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_ICD_DIAGNOSESICHERHEIT"/>
+					<code value="V"/>
+				</valueCoding>
 			</answer>
 		</item>
 		<item>
